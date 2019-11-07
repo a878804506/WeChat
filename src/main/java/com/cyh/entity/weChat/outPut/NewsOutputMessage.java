@@ -2,7 +2,7 @@ package com.cyh.entity.weChat.outPut;
 
 import java.util.List;
 
-import com.cyh.util.WeChat_Util;
+import com.cyh.util.wechat.WeChat_Util;
 
 /**
  * 提供了获取多条图文消息信息

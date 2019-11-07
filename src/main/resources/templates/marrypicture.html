@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="loading">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+	<title>haha</title>
+	<style type="text/css">
+		.myPicture{
+			text-align: center;
+
+		}
+		.lazy{
+			/*width: 85%;*/
+		}
+
+        body{margin: 0;padding: 0}
+        img{width: 86%;height: auto;}
+	</style>
+</head>
+<body>
+<div id="header" class="head">
+	<div class="wrap">
+		<i class="menu_back"><a href="index"></a></i>
+		<div class="title">
+			<span class="title_d"><p id="title">套图一</p></span>
+			<div class="clear"></div>
+		</div>
+		<!--<i class="menu_share"></i>-->
+	</div>
+</div>
+<div id="container">
+	<div id="content">
+		<div style="height:1px"></div>
+		<div id="works">
+			<div class="pd5">
+				<div class="list_info_i" style="margin-top:5px;">
+					<dl class="list_info_views">
+						<dt></dt>
+						<dd>
+							浏览次数：7416
+						</dd>
+						<div class="clear"></div>
+					</dl>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+				<div class="myPicture" id="myPicture">
+
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script language="javascript" src="js/jquery.min.js"></script>
+<script language="javascript" src="js/jquery.cookie.js"></script>
+<script language="javascript" src="js/zepto.min.js"></script>
+<script language="javascript" src="js/fx.js"></script>
+<script language="javascript" src="js/script.js"></script>
+
+<script type="text/javascript" src="js/fly_zomm_img.min.js"></script>
+
+<script type="text/javascript">
+	/**
+	 * url 获取参数
+	 */
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		var r = window.location.search.substr(1).match(reg);
+		if(r!=null)return  unescape(r[2]); return null;
+	}
+	var pictureGroupId = getQueryString("pictureGroupId");
+	var token = $.cookie('Authorization');
+
+	/**
+	 *  具体照片列表
+	 */
+	$.ajax({
+		headers:{
+			"Authorization":token
+		},
+		url: "getMarryPictureListByGroupId",
+		type: "get",
+		data: {"pictureGroupId":pictureGroupId},
+		dataType: "json",
+		async:false, //同步
+		success: function (data) {
+			if(data.status == 200){
+				var html = "";
+				$.each(data.data.pictureList,function(index,picture){
+					html += "<img class=\"lazy\" src=\"images/loading.gif\" data-src=\""+picture.pictureBasePath+picture.pictureRealPath+"\" " +
+							"data-full=\""+picture.pictureBasePath+picture.pictureRealFullPath+"\"/>";
+				});
+				$("#myPicture").html(html);
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+
+	/**
+	 *  图片懒加载
+	 */
+	// 获取图片列表，即img标签列表
+	var imgs = document.querySelectorAll('img');
+	// 获取到浏览器顶部的距离
+	function getTop(e){
+		return e.offsetTop;
+	}
+	// 懒加载实现
+	function lazyload(imgs){
+		// 可视区域高度
+		var h = window.innerHeight;
+		//滚动区域高度
+		var s = $("#container").scrollTop();
+		for(var i=0;i<imgs.length;i++){
+			//图片距离顶部的距离大于可视区域和滚动区域之和时懒加载
+			if ((h+s)>getTop(imgs[i])) {
+				// 真实情况是页面开始有2秒空白，所以使用setTimeout定时2s
+				(function(i){
+					setTimeout(function(){
+						// 不加立即执行函数i会等于9
+						// 隐形加载图片或其他资源，
+						//创建一个临时图片，这个图片在内存中不会到页面上去。实现隐形加载
+						var temp = new Image();
+						temp.src = imgs[i].getAttribute('data-src');//只会请求一次
+						// onload判断图片加载完毕，真是图片加载完毕，再赋值给dom节点
+						temp.onload = function(){
+							// 获取自定义属性data-src，用真图片替换假图片
+							imgs[i].src = imgs[i].getAttribute('data-src')
+						}
+					},800)
+				})(i)
+			}
+		}
+	}
+	lazyload(imgs);
+	// 滚屏函数
+	$("#container").scroll(function (){
+		lazyload(imgs);
+	})
+
+	/**
+	 *  图片预览
+     *  H5图标浏览插件
+     *  支持多图识别切换
+     *  支持手势放大,切换
+	 */
+    $('#myPicture').FlyZommImg();
+</script>
+</body>
+</html>

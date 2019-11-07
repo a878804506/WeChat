@@ -1,6 +1,6 @@
 package com.cyh.entity.weChat.outPut;
 
-import com.cyh.util.WeChat_Util;
+import com.cyh.util.wechat.WeChat_Util;
 /**
  * 回复音乐消息
  * @author Administrator

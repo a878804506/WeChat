@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyh.Mapper.MarryMapper" >
+
+	<select id="loginUser" parameterType="com.cyh.entity.User" resultType="com.cyh.entity.User">
+		select * from user where password=#{password} and userName=#{userName}
+	</select>
+
+	<select id="getMarryPictureGroupList" resultType="com.cyh.entity.PictureGroup">
+		select * from picturegroup where enable = 1
+	</select>
+
+	<select id="getPictureGroupById" resultType="com.cyh.entity.PictureGroup">
+		select * from picturegroup where enable = 1 and pictureGroupId = ${pictureGroupId}
+	</select>
+
+	<update id="addPictureGroupCountById" >
+		update picturegroup set pictureGroupLookCount = ${pictureGroupLookCount} where pictureGroupId = ${pictureGroupId}
+	</update>
+
+	<select id="getMarryPictureListByGroupId" resultType="com.cyh.entity.Picture">
+		select * from picture where enable = 1 and pictureGroupId = ${pictureGroupId}
+	</select>
+</mapper>

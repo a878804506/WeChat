@@ -1,4 +1,4 @@
-package com.cyh.util;
+package com.cyh.util.wechat;
 
 import com.cyh.entity.weChat.message.*;
 import com.thoughtworks.xstream.XStream;

@@ -1,4 +1,4 @@
-package com.cyh.util;
+package com.cyh.util.wechat;
 
 import com.alibaba.fastjson.JSON;
 import com.cyh.entity.weChat.Menu.Button;

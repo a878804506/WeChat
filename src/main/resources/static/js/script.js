@@ -435,7 +435,7 @@
                         _this.removeClass('a_selected');
                         var dd = _this.parent().parent().parent().parent().find('.fr');
                         dd.trigger('click');
-                        $('.alist').openNewFrame();
+                        // $('.alist').openNewFrame();
                     });
             } else {
                 $(this).parent().parent().find('li').removeClass('a_selected');
@@ -463,7 +463,7 @@
                         $('#list ul').html(v);
                         dd.trigger('click');
                         tcst();
-                        $('.alist').openNewFrame();
+                        // $('.alist').openNewFrame();
                     });
                 $('#sort td').eq(i).find('.sort_b_inner span').html(v);
                 if ($(this).find('.s').attr('class')) {
@@ -631,7 +631,7 @@
         $(window).bind('load',
             function() {
                 scLock = true;
-                $('.alist').openNewFrame();
+                // $('.alist').openNewFrame();
                 $('#container').bind('scroll',
                     function() {
                         var t = $('#container').scrollTop();
@@ -655,7 +655,7 @@
                                         $('.list_loading').html('<span>没有了!</span>');
                                     }
                                     tcst();
-                                    $('.alist').openNewFrame();
+                                    // $('.alist').openNewFrame();
                                 });
                         }
                     });
@@ -843,7 +843,7 @@
                                         } else {
                                             $('.list_loading').html('<span>没有了!</span>');
                                         }
-                                        $('.alist').openNewFrame();
+                                        // $('.alist').openNewFrame();
                                     });
                             }
                         });
@@ -870,7 +870,7 @@
                                         } else {
                                             $('.list_loading').html('<span>没有了!</span>');
                                         }
-                                        $('.alist').openNewFrame();
+                                        // $('.alist').openNewFrame();
                                     });
                             }
                         });
@@ -902,7 +902,7 @@
                 window.parent.history.replaceState(null, dt, d);
                 window.parent.document.title = dt;
                 _this.attr('href', '');
-                $('.alist').openNewFrame();
+                // $('.alist').openNewFrame();
             } else {
                 $('html').addClass('loading2');
                 $('html').addClass('loading');
@@ -927,19 +927,6 @@
                 400);
             return false;
         }
-    });
-
-    //用户登录
-    $('.login_submit').click(function() {
-        $.post("http://www.uehtml.com/service/loginUser", {
-                timestamp: YYToken.timestamp,
-                token: YYToken.token,
-                email: $('.login_user input').val(),
-                password: $('.login_password input').val()
-            },
-            function() {
-                window.location.href = "/";
-            });
     });
 
     var img_loader = function() {
@@ -1033,7 +1020,7 @@
             });
         }
     });
-    $('.alist').openNewFrame();
+    // $('.alist').openNewFrame();
     location.href.indexOf('fid=') < 0 && $('.a_selected').trigger('click');
     $('.us_panel_menu').click(function() {
         if ($('#us_panel_menu').hasClass('show')) {

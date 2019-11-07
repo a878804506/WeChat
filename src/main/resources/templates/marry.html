@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="loading">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+	<meta name="keywords" content="" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<meta content="telephone=no" name="format-detection" />
+	<script>
+        var logined = 0
+	</script>
+	<title>云辉相映</title>
+</head>
+<body>
+<script>
+    var now_page = 1,
+        search_value = '';
+</script>
+
+<div id="menu">
+	<ul>
+		<li class="nav_index menu_cur"><a href="#"><i></i><span>敬请期待</span><b></b>
+			<div class="clear"></div></a></li>
+		<li class="nav_site"><a href="#"><i></i><span>敬请期待</span><b></b>
+			<div class="clear"></div></a></li>
+		<li class="nav_help"><a href="#"><i></i><span>敬请期待</span><b></b>
+			<div class="clear"></div></a></li>
+		<li class="nav_about"><a href="#"><i></i><span>敬请期待</span><b></b>
+			<div class="clear"></div></a></li>
+	</ul>
+</div>
+
+<div id="user">
+	<div class="account">
+		<div class="login_b_t">
+			<div class="pd10">
+				<div class="fl" >
+					<span id="tips">还没有账号</span>
+					<a id="reg_now" href="" onclick="alert('敬请期待！');return false;">立即注册</a>
+					<a id="loginout" href="" onclick="loginout();" style="display: none">退出登陆</a>
+				</div>
+				<div class="fr">
+					<a href="#" onclick="alert('敬请期待！');return false;" id="forgotPwd">忘记密码?</a>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<div class="pd10" id="loginform">
+		<form method="post" action="">
+			<div class="login_b_i">
+				<div class="login_input">
+					<div class="login_user">
+						<input type="text" name="email" placeholder="帐号" id="username"/>
+						<i></i>
+					</div>
+					<hr />
+					<div class="login_password">
+						<input type="password" name="password" placeholder="密码" id="passwd"/>
+						<i></i>
+					</div>
+				</div>
+			</div>
+			<a class="login_submit" id="login_submit">登录</a>
+		</form>
+	</div>
+</div>
+<!-- 首页标题部分-->
+<div id="header">
+	<div class="wrap">
+		<i class="menu_open" ></i>
+		<div class="logo">
+			<a href="#"><img src="css/logo.png" /></a>
+			<!--<span>咱们结婚吧</span>-->
+		</div>
+		<i class="search_open"></i>
+	</div>
+	<div class="logo_msk"></div>
+</div>
+<!-- 首页  未登录状态时-->
+<div id="container">
+	<!-- 首页内容展示  未登录状态时-->
+	<div id="content">
+		<div id="list">
+			<ul>
+				<li>
+					<div class="wrap" id="pictureGroup">
+						<!--<a class="alist" onclick="gotoMarryPicture(1);">
+							<div class="list_litpic fl">
+								<img src="images/1421841277109.jpg" />
+							</div>
+							<div class="list_info">
+								<h4>套图一</h4>
+								<h5>by<span>耳东陈</span></h5>
+								<div class="list_info_i">
+									<dl class="list_info_views">
+										<dt></dt>
+										<dd>
+											6907
+										</dd>
+										<div class="clear"></div>
+									</dl>
+									<div class="clear"></div>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</a>-->
+					</div>
+				</li>
+			</ul>
+			<!--<div class="list_loading">
+				<i></i>
+				<span>努力加载中...</span>
+			</div>-->
+		</div>
+	</div>
+	<div class="push_msk"></div>
+</div>
+<!-- 从首页跳转时  跳转内容放入此iframe中 -->
+<div id="newwrap_t" class="newwrap">
+	<div class="newwrap_msk"></div>
+	<iframe id="newwrap" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+
+<div class="loading_dark"></div>
+<div id="loading_mask">
+	<div class="loading_mask">
+		<ul class="anm">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</div>
+<script language="javascript" src="js/jquery.min.js"></script>
+<script language="javascript" src="js/jquery.cookie.js"></script>
+<script language="javascript" src="js/zepto.min.js"></script>
+<script language="javascript" src="js/fx.js"></script>
+<script language="javascript" src="js/script.js"></script>
+<script type="text/javascript">
+
+	var token = $.cookie('Authorization');
+	var username = $.cookie('username');
+	console.log(token);
+
+	$("#login_submit").click(function () {
+		$.ajax({
+			url: "marrylogin",
+			type: "post",
+			data: {userName: $("#username").val(),password: $("#passwd").val()},
+			dataType: "json",
+			async:false, //同步
+			success: function (data) {
+				if(data.status == 200){
+					$.cookie('Authorization',data.data.token,{expires:1});
+					$.cookie('username',data.data.username,{expires:1});
+					window.location.reload();
+				}else{
+					alert(data.message);
+				}
+			}
+		});
+	});
+
+	function gotoMarryPicture(picturegroupid){
+		if(token == "" || token ==null || token == undefined){
+			alert("请先登陆！");
+			return;
+		}
+		document.location.href = "marrypicture?pictureGroupId="+picturegroupid;
+	}
+
+	function initPageByToken(){
+		// 照片组列表
+		$.ajax({
+			headers:{
+				"Authorization":token
+			},
+			url: "getMarryPictureGroupList",
+			type: "get",
+			data: {},
+			dataType: "json",
+			success: function (data) {
+				if(data.status == 200){
+					var html = "";
+					$.each(data.data,function(index,picturegroup){
+						html += "<a class=\"alist\" onclick=\"gotoMarryPicture("+picturegroup.pictureGroupId+");\">" +
+								"<div class=\"list_litpic fl\">" +
+								"<img src=\""+picturegroup.pictureGroupBasePath+picturegroup.pictureGroupShowPath+"\" />" +
+								"</div>" +
+								"<div class=\"list_info\">" +
+								"<h4>"+picturegroup.pictureGroupName+"</h4>\n" +
+								"<h5>by<span>"+picturegroup.by+"</span></h5>" +
+								"<div class=\"list_info_i\">\n" +
+								"<dl class=\"list_info_views\">" +
+								"<dt></dt>" +
+								"<dd>" +
+								""+picturegroup.pictureGroupLookCount+"" +
+								"</dd>" +
+								"<div class=\"clear\"></div>" +
+								"</dl>" +
+								"<div class=\"clear\"></div>" +
+								"</div>" +
+								"</div>" +
+								"<div class=\"clear\"></div>" +
+								"</a>";
+					});
+					$("#pictureGroup").html(html);
+				}
+			}
+		});
+
+		if(token == "" || token ==null || token == undefined){
+			return;
+		}
+		$("#tips").text("欢迎您 : "+username+" ！");
+		$("#loginform").hide();
+		$("#reg_now").hide();
+		$("#forgotPwd").hide();
+		$("#loginout").show();
+	}
+
+	function loginout(){
+		$.ajax({
+			headers:{
+				"Authorization":token
+			},
+			url: "marryloginout",
+			type: "post",
+			data: {},
+			dataType: "json",
+			success: function (data) {
+				if(data.status == 200){
+					$.removeCookie('Authorization');
+					window.location.reload();
+				}else{
+					alert(data.message);
+				}
+			}
+		});
+	}
+
+	// 登陆后 或者 在cookie 有效期内 初始化登录后的页面
+	initPageByToken();
+</script>
+</body>
+</html>

@@ -1,8 +1,8 @@
 package com.cyh.controller;
 
 import com.cyh.service.WeChatService;
-import com.cyh.util.WeChat_SignUtil;
-import com.cyh.util.WeChat_Util;
+import com.cyh.util.wechat.WeChat_SignUtil;
+import com.cyh.util.wechat.WeChat_Util;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 @Controller
-@RequestMapping(value ="/getAndPost")
+@RequestMapping(value ="/wechat")
 public class WeChatController {
 
     @RequestMapping(method = RequestMethod.GET)

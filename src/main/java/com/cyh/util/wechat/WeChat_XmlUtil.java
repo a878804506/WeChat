@@ -1,4 +1,4 @@
-package com.cyh.util;
+package com.cyh.util.wechat;
 
 import org.apache.commons.lang3.StringUtils;
 import org.xmlpull.v1.XmlPullParser;

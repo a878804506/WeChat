@@ -1,8 +1,8 @@
 package com.cyh.service;
 
 import com.cyh.entity.weChat.message.TextMessage;
-import com.cyh.util.WeChat_Util;
-import com.cyh.util.WeChat_XmlUtil;
+import com.cyh.util.wechat.WeChat_Util;
+import com.cyh.util.wechat.WeChat_XmlUtil;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -37,7 +37,8 @@ public class WeChatService {
                 textMessage.setFromUserName(toUserName);
                 textMessage.setCreateTime(new Date().getTime());
                 textMessage.setContent("您发送的是文本消息内容是："+ map.get("Content")+
-                        "<a href = \"http://148.70.60.231/WeChat/index\">水务管理系统</a>");
+                        "<a href = \"https://lhy.erdonghen.top\">我的女神</a>" +
+                        "<a href = \"https://wechat.erdonghen.top/index\">应用介苗</a>");
 
                 textMessage.setMsgType(WeChat_Util.TEXT_MESSAGE);
                 respXml = WeChat_Util.textMessageToXml(textMessage);

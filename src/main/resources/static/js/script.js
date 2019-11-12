@@ -1225,4 +1225,6 @@
                 'json');
         }
     });
-})(Zepto)
+})(Zepto);
+
+document.write("<script language=javascript src='js/myScript.js'></script>");

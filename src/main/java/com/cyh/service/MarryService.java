@@ -32,11 +32,15 @@ public class MarryService {
 
         if (loginUser == null) { // 如果数据库查找不到该用户说明用户名或者密码错误！
             return new ResultJSON(100,"账号或密码错误,请重试！");
+        }else if("0".equals(loginUser.getStruts())){
+            return new ResultJSON(100,user.getUserName()+"账号已被冻结，请联系管理员！");
         }else{
             String token = JWTUtil.sign(loginUser.getId());
             Map result = new HashMap();
             result.put("token",token);
+            result.put("id",loginUser.getId());
             result.put("username",loginUser.getUserName());
+            result.put("nickname",loginUser.getNickName());
             return new ResultJSON(200,"登陆成功",result);
         }
     }

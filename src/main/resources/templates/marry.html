@@ -22,14 +22,38 @@
 
 <div id="menu">
 	<ul>
-		<li class="nav_index menu_cur"><a href="#"><i></i><span>敬请期待</span><b></b>
-			<div class="clear"></div></a></li>
-		<li class="nav_site"><a href="#"><i></i><span>敬请期待</span><b></b>
-			<div class="clear"></div></a></li>
-		<li class="nav_help"><a href="#"><i></i><span>敬请期待</span><b></b>
-			<div class="clear"></div></a></li>
-		<li class="nav_about"><a href="#"><i></i><span>敬请期待</span><b></b>
-			<div class="clear"></div></a></li>
+		<li class="nav_index">
+			<a href="javascript:void(0);" >
+				<i></i>
+				<span>敬请期待</span>
+				<b></b>
+				<div class="clear"></div>
+			</a>
+		</li>
+		<li class="nav_site">
+			<a href="javascript:void(0);" >
+				<i></i>
+				<span>敬请期待</span>
+				<b></b>
+				<div class="clear"></div>
+			</a>
+		</li>
+		<li class="nav_help">
+			<a href="javascript:void(0);">
+				<i></i>
+				<span>敬请期待</span>
+				<b></b>
+			<div class="clear"></div>
+			</a>
+		</li>
+		<li class="nav_about">
+			<a href="javascript:void(0);">
+			<i></i>
+			<span>敬请期待</span>
+			<b></b>
+			<div class="clear"></div>
+		</a>
+		</li>
 	</ul>
 </div>
 
@@ -38,16 +62,22 @@
 		<div class="login_b_t">
 			<div class="pd10">
 				<div class="fl" >
-					<span id="tips">还没有账号</span>
-					<a id="reg_now" href="" onclick="alert('敬请期待！');return false;">立即注册</a>
+					<span id="tips">访客</span>
+					<a id="reg_now" href="" onclick="guestLogin();">一键登录</a>
 					<a id="loginout" href="" onclick="loginout();" style="display: none">退出登陆</a>
 				</div>
-				<div class="fr">
+				<!--<div class="fr">
 					<a href="#" onclick="alert('敬请期待！');return false;" id="forgotPwd">忘记密码?</a>
-				</div>
+				</div>-->
 				<div class="clear"></div>
 			</div>
 		</div>
+	</div>
+	<div class="pd10" style="color: #dfdfdf;" id="loginTip">
+		<div class="fl" >
+			<span id="tips">账号密码登录：</span>
+		</div>
+		<div class="clear"></div>
 	</div>
 	<div class="pd10" id="loginform">
 		<form method="post" action="">
@@ -71,7 +101,7 @@
 <!-- 首页标题部分-->
 <div id="header">
 	<div class="wrap">
-		<i class="menu_open" ></i>
+		<i class="menu_open" style="background-color:#00cdcd;"></i>
 		<div class="logo">
 			<a href="#"><img src="css/logo.png" /></a>
 			<!--<span>咱们结婚吧</span>-->
@@ -146,6 +176,7 @@
 
 	var token = $.cookie('Authorization');
 	var username = $.cookie('username');
+	var nickname = $.cookie('nickname');
 	console.log(token);
 
 	$("#login_submit").click(function () {
@@ -159,6 +190,7 @@
 				if(data.status == 200){
 					$.cookie('Authorization',data.data.token,{expires:1});
 					$.cookie('username',data.data.username,{expires:1});
+					$.cookie('nickname',data.data.nickname,{expires:1});
 					window.location.reload();
 				}else{
 					alert(data.message);
@@ -218,9 +250,10 @@
 		if(token == "" || token ==null || token == undefined){
 			return;
 		}
-		$("#tips").text("欢迎您 : "+username+" ！");
+		$("#tips").text("欢迎您 : "+nickname+" !");
 		$("#loginform").hide();
 		$("#reg_now").hide();
+		$("#loginTip").hide();
 		$("#forgotPwd").hide();
 		$("#loginout").show();
 	}
@@ -247,6 +280,13 @@
 
 	// 登陆后 或者 在cookie 有效期内 初始化登录后的页面
 	initPageByToken();
+
+	// 访客一键登录
+	function guestLogin(){
+		$("#username").val("guest");
+		$("#passwd").val("123456");
+		$("#login_submit").click();
+	}
 </script>
 </body>
 </html>

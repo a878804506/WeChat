@@ -115,10 +115,10 @@
 	<!-- 首页内容展示  未登录状态时-->
 	<div id="content">
 		<div id="list">
-			<ul>
-				<li>
-					<div class="wrap" id="pictureGroup">
-						<!--<a class="alist" onclick="gotoMarryPicture(1);">
+			<ul id="pictureGroup">
+				<!--<li>
+					<div class="wrap" >
+						<a class="alist" onclick="gotoMarryPicture(1);">
 							<div class="list_litpic fl">
 								<img src="images/1421841277109.jpg" />
 							</div>
@@ -137,9 +137,9 @@
 								</div>
 							</div>
 							<div class="clear"></div>
-						</a>-->
+						</a>
 					</div>
-				</li>
+				</li>-->
 			</ul>
 			<!--<div class="list_loading">
 				<i></i>
@@ -221,7 +221,7 @@
 				if(data.status == 200){
 					var html = "";
 					$.each(data.data,function(index,picturegroup){
-						html += "<a class=\"alist\" onclick=\"gotoMarryPicture("+picturegroup.pictureGroupId+");\">" +
+						html += "<li><div class=\"wrap\" ><a class=\"alist\" onclick=\"gotoMarryPicture("+picturegroup.pictureGroupId+");\">" +
 								"<div class=\"list_litpic fl\">" +
 								"<img src=\""+picturegroup.pictureGroupBasePath+picturegroup.pictureGroupShowPath+"\" />" +
 								"</div>" +
@@ -240,7 +240,7 @@
 								"</div>" +
 								"</div>" +
 								"<div class=\"clear\"></div>" +
-								"</a>";
+								"</a></div></li>";
 					});
 					$("#pictureGroup").html(html);
 				}

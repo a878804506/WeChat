@@ -2,7 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" class="loading">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 	<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 
@@ -110,7 +109,7 @@
 				// 填充图片
 				var html = "";
 				$.each(data.data.pictureList,function(index,picture){
-					html += "<img class=\"lazy\" src=\"images/loading.gif\" data-src=\""+picture.pictureBasePath+picture.pictureRealPath+"\" " +
+					html += "<img class=\"lazy\" src=\"css/loading.gif\" data-src=\""+picture.pictureBasePath+picture.pictureRealPath+"\" " +
 							"data-full=\""+picture.pictureBasePath+picture.pictureRealFullPath+"\"/>";
 				});
 				$("#myPicture").html(html);

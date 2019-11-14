@@ -44,14 +44,15 @@ public class MyFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
 
         String requestURI = request.getRequestURI();
-        System.out.println(requestURI);
 
         if(NOT_CHECK_URL.contains(requestURI)){
+            System.out.println(requestURI);
             chain.doFilter(request, response);
         }else if(requestURI.endsWith(".js") ||
                 requestURI.endsWith(".jpg") ||
                 requestURI.endsWith(".gif") ||
                 requestURI.endsWith(".png") ||
+                requestURI.endsWith(".ico") ||
                 requestURI.endsWith(".css")){
             //允许加载静态文件
             chain.doFilter(request,response);
@@ -59,7 +60,9 @@ public class MyFilter implements Filter {
             String token = request.getHeader("Authorization");
             if(JWTUtil.checkToken(token)){
                 chain.doFilter(request, response);
+                System.out.println(requestURI);
             }else{
+                System.out.println("该URL被拦截"+requestURI);
                 response.sendRedirect("marry");
             }
         }

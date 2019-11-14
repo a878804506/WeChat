@@ -14,7 +14,7 @@ public interface MarryMapper {
 
     User loginUser(User user);
 
-    List<PictureGroup> getMarryPictureGroupList();
+    List<PictureGroup> getMarryPictureGroupList(@Param("isLogin")boolean isLogin);
 
     PictureGroup getPictureGroupById(@Param("pictureGroupId")Integer pictureGroupId);
 

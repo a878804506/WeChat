@@ -35,14 +35,20 @@ public class MarryController {
      * @return
      */
     @RequestMapping("/marrypicture")
-    public String marrypicture(Integer pictureGroupId){
-        System.out.println("==========="+pictureGroupId);
-        if( pictureGroupId == null ){
+    public String marrypicture(Integer pictureGroupId,Integer type){
+        if( null == pictureGroupId || null == type){
             return "marry";
         }
         // 增加访问次数
         marryService.toPictureGroupCountAdd(pictureGroupId);
-        return "marrypicture";
+        //判断跳转的哪个页面
+        if(type.equals(1)){
+            // 照片
+            return "marrypicture";
+        }else{
+            // 文字（一封信）
+            return "email";
+        }
     }
 
     @ResponseBody
@@ -86,6 +92,18 @@ public class MarryController {
     @RequestMapping(value = "/getMarryPictureListByGroupId",method = RequestMethod.GET)
     public String getMarryPictureListByGroupId(Integer pictureGroupId){
         ResultJSON result = marryService.getMarryPictureListByGroupId(pictureGroupId);
+        return JSON.toJSONString(result);
+    }
+
+    /**
+     * 根据组id ，获取 pictureGroup 实体
+     * @param pictureGroupId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getPictureGroupByGroupId",method = RequestMethod.GET)
+    public String getPictureGroupByGroupId(Integer pictureGroupId){
+        ResultJSON result = marryService.getPictureGroupByGroupId(pictureGroupId);
         return JSON.toJSONString(result);
     }
 }

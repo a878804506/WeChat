@@ -46,7 +46,7 @@ public class MarryService {
     }
 
     public ResultJSON getMarryPictureGroupList(boolean isLogin) {
-        List<PictureGroup> marryPictureGroupList = marryMapper.getMarryPictureGroupList();
+        List<PictureGroup> marryPictureGroupList = marryMapper.getMarryPictureGroupList(isLogin);
         if(isLogin){
             for (PictureGroup temp : marryPictureGroupList) {
                 temp.setPictureGroupShowPath(temp.getPictureGroupRealPath());
@@ -73,5 +73,10 @@ public class MarryService {
         result.put("pictureGroup",pictureGroup);
         result.put("pictureList",pictureList);
         return new ResultJSON(200,"查询成功",result);
+    }
+
+    public ResultJSON getPictureGroupByGroupId(Integer pictureGroupId) {
+        PictureGroup pictureGroup = marryMapper.getPictureGroupById(pictureGroupId);
+        return new ResultJSON(200,"查询成功",pictureGroup);
     }
 }

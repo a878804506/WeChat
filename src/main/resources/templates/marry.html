@@ -22,7 +22,7 @@
 
 <div id="menu">
 	<ul>
-		<li class="nav_index">
+		<!--<li class="nav_index">
 			<a href="javascript:void(0);" >
 				<i></i>
 				<span>敬请期待</span>
@@ -37,11 +37,11 @@
 				<b></b>
 				<div class="clear"></div>
 			</a>
-		</li>
+		</li>-->
 		<li class="nav_help">
 			<a href="javascript:void(0);">
 				<i></i>
-				<span>敬请期待</span>
+				<span>来客登记</span>
 				<b></b>
 			<div class="clear"></div>
 			</a>
@@ -49,7 +49,7 @@
 		<li class="nav_about">
 			<a href="javascript:void(0);">
 			<i></i>
-			<span>敬请期待</span>
+			<span>你的建议</span>
 			<b></b>
 			<div class="clear"></div>
 		</a>
@@ -177,7 +177,6 @@
 	var token = $.cookie('Authorization');
 	var username = $.cookie('username');
 	var nickname = $.cookie('nickname');
-	console.log(token);
 
 	$("#login_submit").click(function () {
 		$.ajax({
@@ -199,12 +198,12 @@
 		});
 	});
 
-	function gotoMarryPicture(picturegroupid){
+	function gotoMarryPicture(picturegroupid,type){
 		if(token == "" || token ==null || token == undefined){
 			alert("请先登陆！");
 			return;
 		}
-		document.location.href = "marrypicture?pictureGroupId="+picturegroupid;
+		document.location.href = "marrypicture?pictureGroupId="+picturegroupid+"&type="+type;
 	}
 
 	function initPageByToken(){
@@ -221,26 +220,32 @@
 				if(data.status == 200){
 					var html = "";
 					$.each(data.data,function(index,picturegroup){
-						html += "<li><div class=\"wrap\" ><a class=\"alist\" onclick=\"gotoMarryPicture("+picturegroup.pictureGroupId+");\">" +
-								"<div class=\"list_litpic fl\">" +
-								"<img src=\""+picturegroup.pictureGroupBasePath+picturegroup.pictureGroupShowPath+"\" />" +
-								"</div>" +
-								"<div class=\"list_info\">" +
-								"<h4>"+picturegroup.pictureGroupName+"</h4>\n" +
-								"<h5>by<span>"+picturegroup.by+"</span></h5>" +
-								"<div class=\"list_info_i\">\n" +
-								"<dl class=\"list_info_views\">" +
-								"<dt></dt>" +
-								"<dd>" +
-								""+picturegroup.pictureGroupLookCount+"" +
-								"</dd>" +
-								"<div class=\"clear\"></div>" +
-								"</dl>" +
-								"<div class=\"clear\"></div>" +
-								"</div>" +
-								"</div>" +
-								"<div class=\"clear\"></div>" +
-								"</a></div></li>";
+						html += "<li>" +
+									"<div class=\"wrap\" >" +
+										"<a class=\"alist\" onclick=\"gotoMarryPicture("+picturegroup.pictureGroupId+","+picturegroup.type+");\">" +
+											"<div class=\"list_litpic fl\">" +
+												"<img src=\""+picturegroup.pictureGroupBasePath+picturegroup.pictureGroupShowPath+"\" />" +
+											"</div>" +
+											"<div class=\"list_info\">" +
+												"<h4>"+picturegroup.pictureGroupName+"</h4>" +
+												"<h5>by<span>"+picturegroup.by+"</span></h5>" +
+												"<div class=\"list_info_i\">\n" +
+													"<dl class=\"list_info_views\">" +
+														"<dt></dt>" +
+														"<dd>"+picturegroup.pictureGroupLookCount+"</dd>" +
+														"<div class=\"clear\"></div>" +
+													"</dl>" +
+													"<dl class=\"list_info_comment\">" +
+														"<dt></dt>" +
+														"<dd>"+picturegroup.pictureGroupCount+"</dd>" +
+														"<div class=\"clear\"></div>" +
+													"</dl>" +
+												"</div>" +
+											"</div>" +
+											"<div class=\"clear\"></div>" +
+										"</a>" +
+									"</div>" +
+								"</li>";
 					});
 					$("#pictureGroup").html(html);
 				}

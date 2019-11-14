@@ -13,6 +13,8 @@ public class PictureGroup {
     private String pictureGroupBasePath;
     private Integer pictureGroupLookCount;
     private String by;
+    private String pictureGroupCount;
+    private int type; // 0:文字类   1:图片类
 
     public Integer getPictureGroupId() {
         return pictureGroupId;
@@ -84,5 +86,21 @@ public class PictureGroup {
 
     public void setBy(String by) {
         this.by = by;
+    }
+
+    public String getPictureGroupCount() {
+        return pictureGroupCount;
+    }
+
+    public void setPictureGroupCount(String pictureGroupCount) {
+        this.pictureGroupCount = pictureGroupCount;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

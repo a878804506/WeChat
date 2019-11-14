@@ -8,6 +8,9 @@
 
 	<select id="getMarryPictureGroupList" resultType="com.cyh.entity.PictureGroup">
 		select * from picturegroup where enable = 1
+		<if test="isLogin == false">
+			and type = 1
+		</if>
 	</select>
 
 	<select id="getPictureGroupById" resultType="com.cyh.entity.PictureGroup">

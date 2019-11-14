@@ -30,6 +30,7 @@ public class MyFilter implements Filter {
         NOT_CHECK_URL.add("/getMarryPictureGroupList");
         // wechat
         NOT_CHECK_URL.add("/wechat");
+
     }
 
     @Override

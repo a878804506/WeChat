@@ -12,10 +12,6 @@
 			text-align: center;
 
 		}
-		.lazy{
-			/*width: 85%;*/
-		}
-
         body{margin: 0;padding: 0}
         img{width: 86%;height: auto;}
 	</style>
@@ -25,7 +21,7 @@
 	<div class="wrap">
 		<i class="menu_back"><a href="marry"></a></i>
 		<div class="title">
-			<span class="title_d"><p id="title">loading...</p></span>
+			<span class="title_d"><p id="title">loading..</p></span>
 			<div class="clear"></div>
 		</div>
 		<!--<i class="menu_share"></i>-->
@@ -55,7 +51,7 @@
 				</div>
 				<div class="clear"></div>
 				<div class="myPicture" id="myPicture">
-
+					hahahaha
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -68,8 +64,6 @@
 <script language="javascript" src="js/zepto.min.js"></script>
 <script language="javascript" src="js/fx.js"></script>
 <script language="javascript" src="js/script.js"></script>
-
-<script type="text/javascript" src="js/fly_zomm_img.min.js"></script>
 
 <script type="text/javascript">
 	/**
@@ -89,13 +83,13 @@
 	}
 
 	/**
-	 *  具体照片列表
+	 * 获取 pictureGroup 实体
 	 */
 	$.ajax({
 		headers:{
 			"Authorization":token
 		},
-		url: "getMarryPictureListByGroupId",
+		url: "getPictureGroupByGroupId",
 		type: "get",
 		data: {"pictureGroupId":pictureGroupId},
 		dataType: "json",
@@ -103,72 +97,15 @@
 		success: function (data) {
 			if(data.status == 200){
 				// 填充标题、浏览量、预加载数据大小
-				var pictureGroup = data.data.pictureGroup;
+				var pictureGroup = data.data;
 				$("#title").html(pictureGroup.pictureGroupName);
 				$("#lookCount").html(pictureGroup.pictureGroupLookCount);
 				$("#dataCount").html(pictureGroup.pictureGroupCount);
-				// 填充图片
-				var html = "";
-				$.each(data.data.pictureList,function(index,picture){
-					html += "<img class=\"lazy\" src=\"images/loading.gif\" data-src=\""+picture.pictureBasePath+picture.pictureRealPath+"\" " +
-							"data-full=\""+picture.pictureBasePath+picture.pictureRealFullPath+"\"/>";
-				});
-				$("#myPicture").html(html);
 			}else{
 				alert(data.message);
 			}
 		}
 	});
-
-	/**
-	 *  图片懒加载
-	 */
-	// 获取图片列表，即img标签列表
-	var imgs = document.querySelectorAll('img');
-	// 获取到浏览器顶部的距离
-	function getTop(e){
-		return e.offsetTop;
-	}
-	// 懒加载实现
-	function lazyload(imgs){
-		// 可视区域高度
-		var h = window.innerHeight;
-		//滚动区域高度
-		var s = $("#container").scrollTop();
-		for(var i=0;i<imgs.length;i++){
-			//图片距离顶部的距离大于可视区域和滚动区域之和时懒加载
-			if ((h+s)>getTop(imgs[i])) {
-				// 真实情况是页面开始有2秒空白，所以使用setTimeout定时2s
-				(function(i){
-					setTimeout(function(){
-						// 不加立即执行函数i会等于9
-						// 隐形加载图片或其他资源，
-						//创建一个临时图片，这个图片在内存中不会到页面上去。实现隐形加载
-						var temp = new Image();
-						temp.src = imgs[i].getAttribute('data-src');//只会请求一次
-						// onload判断图片加载完毕，真是图片加载完毕，再赋值给dom节点
-						temp.onload = function(){
-							// 获取自定义属性data-src，用真图片替换假图片
-							imgs[i].src = imgs[i].getAttribute('data-src')
-						}
-					},800)
-				})(i)
-			}
-		}
-	}
-	lazyload(imgs);
-	// 滚屏函数
-	$("#container").scroll(function (){
-		lazyload(imgs);
-	})
-
-	/**
-	 *  图片预览
-     *  H5图标浏览插件
-     *  支持多图识别切换
-     *  支持手势放大,切换
-	 */
-    $('#myPicture').FlyZommImg();
 </script>
 </body>
 </html>

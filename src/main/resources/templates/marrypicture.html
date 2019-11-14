@@ -114,6 +114,8 @@
 							"data-full=\""+picture.pictureBasePath+picture.pictureRealFullPath+"\"/>";
 				});
 				$("#myPicture").html(html);
+				// 首次加载完毕 触发一次加载图片
+                setTimeout(lazyload,500);
 			}else{
 				alert(data.message);
 			}
@@ -123,21 +125,26 @@
 	/**
 	 *  图片懒加载
 	 */
-	// 获取图片列表，即img标签列表
-	var imgs = document.querySelectorAll('img');
-	// 获取到浏览器顶部的距离
+	// 获取图片的高度
 	function getTop(e){
-		return e.offsetTop;
+		return e.height;
 	}
+
 	// 懒加载实现
-	function lazyload(imgs){
+	function lazyload(){
 		// 可视区域高度
 		var h = window.innerHeight;
 		//滚动区域高度
 		var s = $("#container").scrollTop();
+
+        var pictureHeight = 0;
+        // 获取图片列表，即img标签列表
+        var imgs = document.querySelectorAll('img');
 		for(var i=0;i<imgs.length;i++){
 			//图片距离顶部的距离大于可视区域和滚动区域之和时懒加载
-			if ((h+s)>getTop(imgs[i])) {
+            console.log("pictureHeight--->"+pictureHeight);
+			if ((h+s)>pictureHeight) {
+                pictureHeight += getTop(imgs[i]);
 				// 真实情况是页面开始有2秒空白，所以使用setTimeout定时2s
 				(function(i){
 					setTimeout(function(){
@@ -156,10 +163,11 @@
 			}
 		}
 	}
-	lazyload(imgs);
+
+
 	// 滚屏函数
 	$("#container").scroll(function (){
-		lazyload(imgs);
+		lazyload();
 	})
 
 	/**

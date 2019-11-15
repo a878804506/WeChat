@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="loading">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+	<title></title>
+	<style type="text/css">
+		.myPicture{
+			text-align: center;
+		}
+		.submit_registration{
+			background: url(css/icons.png) no-repeat;
+			background-size: 800px 800px;
+			background-position: -115px -30px;
+			background-color: #00cdcd;
+			right: 0;
+		}
+		table{
+			width: 100%;
+		}
+		tr{
+
+		}
+		.td_left{
+			padding-top: 20px;
+			width: 30%;
+			text-align: right;
+		}
+		.td_right{
+			padding-top: 20px;
+			width: 70%;
+			text-align: left;
+		}
+		input{
+			outline-style: none;
+			border-radius: 3px;
+			padding: 7px 0px;
+			font-size: 16px;
+		}
+		input:focus{
+			border-color: #66afe9;
+			outline: 0;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+			box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+		}
+		.must_input{
+			color: red;
+			font-size: 20px;
+		}
+		#peoples{
+			width: 40px;
+			height: 30px;
+			border-radius: 3px;
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body>
+<div id="header" class="head">
+	<div class="wrap">
+		<i class="menu_back"><a href="marry"></a></i>
+		<div class="title">
+			<span class="title_d"><p>来客登记</p></span>
+			<div class="clear"></div>
+		</div>
+		<i class="submit_registration" onclick="submitVisitor();"><a href="marry"></a></i>
+
+	</div>
+</div>
+<div id="container">
+	<div id="content">
+		<div style="height:1px"></div>
+		<div id="works">
+			<div class="pd5">
+				<div class="myPicture" id="myPicture">
+					<table>
+						<tr>
+							<td class="td_left">姓名<span class="must_input">*</span>：</td>
+							<td class="td_right"><input type="text" value="" id="name" /></td>
+						</tr>
+						<tr>
+							<td class="td_left">电话<span class="must_input">*</span>：</td>
+							<td class="td_right"><input type="text" value="" id="phone" /></td>
+						</tr>
+						<tr>
+							<td class="td_left">来客人数<span class="must_input">*</span>：</td>
+							<td class="td_right">
+								<select id="peoples">
+									<option value="1" selected>1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="td_left">宴会时间：</td>
+							<td class="td_right">2019年1月20日（农历腊月26）中午12点</td>
+						</tr>
+						<tr>
+							<td class="td_left">宴会地址：</td>
+							<td class="td_right">谷城县紫金镇供水站</td>
+						</tr>
+						<tr>
+							<td class="td_left">百度地图：</td>
+							<td class="td_right">
+							</td>
+						</tr>
+					</table>
+					<div id="companyMap" style="width: 100%;height: 300px"></div>
+					<div id="map-address0" style="display: none">
+						<p>婚宴就在这里啊，你们别搞错了！</p>
+						<p>这个地方是我家 ╮(￣▽ ￣)╭</p>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script language="javascript" src="js/jquery.min.js"></script>
+<script language="javascript" src="js/jquery.cookie.js"></script>
+<script language="javascript" src="js/zepto.min.js"></script>
+<script language="javascript" src="js/fx.js"></script>
+<script language="javascript" src="js/script.js"></script>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?ak=oBFV4op0SblxeQUUKq4eb40CLG9qyMtE=&v=2.0&services=false"></script>
+
+<script type="text/javascript">
+
+	var token = $.cookie('Authorization');
+
+	if(token == "" || token ==null || token == undefined){
+		alert("登陆过期，请重新登陆！");
+		document.location.href = "marry";
+	}
+
+	$(function (){
+		mapPageInt();
+	});
+
+	function mapPageInt(){
+		companyMap.map = new BMap.Map("companyMap");
+		companyMap.map.enableScrollWheelZoom();
+		var point = new BMap.Point(111.316805,32.136539);
+        var icon = new BMap.Icon('css/heart.png', new BMap.Size(60, 60), {
+            anchor: new BMap.Size(28, 50)
+        });
+		companyMap.map.centerAndZoom(point, 17);
+		var infoWindow = new BMap.InfoWindow(document.getElementById("map-address0").innerHTML);
+		var marker = new BMap.Marker(point, {
+            icon: icon
+        });
+        companyMap.map.addOverlay(marker);
+		marker.addEventListener("click", function(){
+			this.openInfoWindow(infoWindow);
+		});
+	}
+
+    $("input").click(function(){
+		$("input").css("border-color","#66afe9");
+	})
+
+	/*
+     * 验证手机号码
+     */
+	function validatorTel(content){
+		// 正则验证格式
+		eval("var reg = /^1[34578]\\d{9}$/;");
+		return RegExp(reg).test(content);
+	}
+
+	var phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/;
+
+	function submitVisitor() {
+		var name = $("#name").val();
+		var phone = $("#phone").val();
+		if( name == "" ){
+			$("#name").css("border-color","red");
+			return;
+		}
+		if( phone == "" ){
+			$("#phone").css("border-color","red");
+			return;
+		}
+		if(!phoneReg.test(phone)){
+			$("#phone").css("border-color","red");
+			return;
+		}
+		// 提交
+		submitForm(name,phone,$("#peoples").val());
+	}
+
+	function submitForm(name,phone,peoples){
+		$.ajax({
+			headers:{
+				"Authorization":token
+			},
+			url: "submitVisitor",
+			type: "post",
+			data: {"name":name,"phone":phone,"peoples":peoples},
+			dataType: "json",
+			async:false, //同步
+			success: function (data) {
+				if(data.status == 200){
+                    alert(data.message+"，马上返回首页");
+                    document.location.href = "marry";
+				}else{
+					alert(data.message);
+				}
+			}
+		});
+	}
+</script>
+</body>
+</html>

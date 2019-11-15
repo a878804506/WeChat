@@ -10,10 +10,6 @@
 	<title>云辉相映</title>
 </head>
 <body>
-<script>
-    var now_page = 1,
-        search_value = '';
-</script>
 
 <div id="menu">
 	<ul>
@@ -34,7 +30,7 @@
 			</a>
 		</li>-->
 		<li class="nav_help">
-			<a href="javascript:void(0);">
+			<a href="javascript:void(0);" onclick="gotoMenu('visitorRegistration');">
 				<i></i>
 				<span>来客登记</span>
 				<b></b>
@@ -42,7 +38,7 @@
 			</a>
 		</li>
 		<li class="nav_about">
-			<a href="javascript:void(0);">
+			<a href="javascript:void(0);"  onclick="gotoMenu('advise');">
 			<i></i>
 			<span>你的建议</span>
 			<b></b>
@@ -200,6 +196,14 @@
 			return;
 		}
 		document.location.href = "marrypicture?pictureGroupId="+picturegroupid+"&type="+type;
+	}
+
+	function gotoMenu(url){
+		if(token == "" || token ==null || token == undefined){
+			alert("请先登陆！");
+			return;
+		}
+		document.location.href = url;
 	}
 
 	function initPageByToken(){

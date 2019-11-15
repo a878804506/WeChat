@@ -24,13 +24,14 @@ public class MyFilter implements Filter {
         NOT_CHECK_URL.add("/marry");
         NOT_CHECK_URL.add("/marrylogin");
         NOT_CHECK_URL.add("/marryloginout");
-        // 跳转的页面
+        // 跳转的页面- 一组照片列表页面
         NOT_CHECK_URL.add("/marrypicture");
+        // 跳转的页面- 来客登记页面
+        NOT_CHECK_URL.add("/visitorRegistration");
         // 获取照片分组列表
         NOT_CHECK_URL.add("/getMarryPictureGroupList");
         // wechat
         NOT_CHECK_URL.add("/wechat");
-
     }
 
     @Override

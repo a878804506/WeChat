@@ -24,4 +24,12 @@
 	<select id="getMarryPictureListByGroupId" resultType="com.cyh.entity.Picture">
 		select * from picture where enable = 1 and pictureGroupId = ${pictureGroupId}
 	</select>
+
+    <insert id="submitVisitor">
+        insert into visitor(ip,name,phone,people)  values(#{ip},#{name},#{phone},#{peoples});
+    </insert>
+
+    <select id="getAllVisitors" resultType="Map">
+		select * from visitor
+	</select>
 </mapper>

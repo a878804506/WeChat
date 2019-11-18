@@ -4,6 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/audio.css">
 	<style type="text/css">
 		#newwrap{
 			-webkit-transition:-webkit-transform 0.3s cubic-bezier(0.33,0.66,0.66,1);
@@ -145,11 +146,60 @@
     </div>
 </div>
 
+<div class="audio-box" id="player" style="display: none;">
+	<div class="audio-container">
+		<div class="audio-cover"></div>
+		<div class="audio-view">
+			<h3 class="audio-title">未知歌曲</h3>
+			<div class="audio-body">
+				<div class="audio-backs">
+					<div class="audio-this-time">00:00</div>
+					<div class="audio-count-time">00:00</div>
+					<div class="audio-setbacks">
+						<i class="audio-this-setbacks">
+							<span class="audio-backs-btn"></span>
+						</i>
+						<span class="audio-cache-setbacks">
+							</span>
+					</div>
+				</div>
+			</div>
+			<div class="audio-btn">
+				<div class="audio-select">
+					<div class="audio-prev"></div>
+					<div class="audio-play"></div>
+					<div class="audio-next"></div>
+					<div class="audio-menu"></div>
+					<div class="audio-volume"></div>
+				</div>
+				<div class="audio-set-volume">
+					<div class="volume-box">
+						<i><span></span></i>
+					</div>
+				</div>
+				<div class="audio-list">
+					<div class="audio-list-head">
+						<p>☺随心听</p>
+						<span class="menu-close">关闭</span>
+					</div>
+					<ul class="audio-inline">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <script language="javascript" src="js/jquery.min.js"></script>
 <script language="javascript" src="js/jquery.cookie.js"></script>
 <script language="javascript" src="js/zepto.min.js"></script>
 <script language="javascript" src="js/fx.js"></script>
+<!--mp3播放-->
+<script type="text/javascript" src="js/audio.js"></script>
+
 <script language="javascript" src="js/script.js"></script>
+<script language="javascript" src="js/myMusic.js"></script>
+
 <script type="text/javascript">
 
 	var token = $.cookie('Authorization');
@@ -250,6 +300,8 @@
 		$("#loginTip").hide();
 		$("#forgotPwd").hide();
 		$("#loginout").show();
+		// 播放音乐
+		player();
 	}
 
 	function loginout(){

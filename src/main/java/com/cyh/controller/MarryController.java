@@ -64,6 +64,16 @@ public class MarryController {
         return "visitorRegistration";
     }
 
+    /**
+     * 你的建议
+     *
+     * @return
+     */
+    @RequestMapping("/advise")
+    public String advise() {
+        return "advise";
+    }
+
     @ResponseBody
     @RequestMapping(value = "/marrylogin", method = RequestMethod.POST)
     public String marrylogin(User user) {
@@ -132,9 +142,23 @@ public class MarryController {
      */
     @ResponseBody
     @RequestMapping(value = "/submitVisitor", method = RequestMethod.POST)
-    public String submitVisitor(HttpServletRequest request,String name, String phone, String peoples) {
+    public String submitVisitor(HttpServletRequest request, String name, String phone, String peoples) {
         String ip = GetUserIpUtil.getUserIpAddress(request);
-        ResultJSON result = marryService.submitVisitor(name,phone,peoples,ip);
+        ResultJSON result = marryService.submitVisitor(name, phone, peoples, ip);
+        return JSON.toJSONString(result);
+    }
+
+    /**
+     * 你的建议
+     *
+     * @param advise
+     * @param call
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/submitAdvise", method = RequestMethod.POST)
+    public String submitAdvise(String advise, String call) {
+        ResultJSON result = marryService.submitAdvise(advise, call);
         return JSON.toJSONString(result);
     }
 }

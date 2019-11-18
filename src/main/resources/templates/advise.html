@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="loading">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+	<title></title>
+	<style type="text/css">
+		.myAdvise{
+			text-align: center;
+		}
+		.submit_registration{
+			background: url(css/icons.png) no-repeat;
+			background-size: 800px 800px;
+			background-position: -115px -30px;
+			background-color: #00cdcd;
+			right: 0;
+		}
+		table{
+			width: 100%;
+		}
+		input{
+			outline-style: none;
+			border-radius: 3px;
+			padding: 7px 0px;
+			font-size: 16px;
+		}
+		input:focus{
+			border-color: #66afe9;
+			outline: 0;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+			box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+		}
+        textarea:focus{
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+        }
+	</style>
+</head>
+<body>
+<div id="header" class="head">
+	<div class="wrap">
+		<i class="menu_back"><a href="marry"></a></i>
+		<div class="title">
+			<span class="title_d"><p>你的建议</p></span>
+			<div class="clear"></div>
+		</div>
+		<i class="submit_registration" onclick="submitAdvise();"><a href="javascript:void(0);"></a></i>
+
+	</div>
+</div>
+<div id="container">
+	<div id="content">
+		<div style="height:1px"></div>
+		<div id="works">
+			<div class="pd5">
+				<div class="myAdvise" id="myAdvise">
+                    <hr/>
+                    <textarea id="advise" rows="20" cols="40" placeholder="请写出你的建议：" style="margin: 15px auto;width: 75%"></textarea>
+                    <hr/>
+                    <input id="call" type="text" placeholder="微信、QQ、邮箱、电话皆可，主要用于反馈建议！" style="margin: 15px auto;width: 75%;font-size: 11px" />
+                    <hr/>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script language="javascript" src="js/jquery.min.js"></script>
+<script language="javascript" src="js/jquery.cookie.js"></script>
+<script language="javascript" src="js/zepto.min.js"></script>
+<script language="javascript" src="js/fx.js"></script>
+<script language="javascript" src="js/script.js"></script>
+
+<script type="text/javascript">
+
+	var token = $.cookie('Authorization');
+	if(token == "" || token ==null || token == undefined){
+		alert("身份验证失败，请重新登陆！");
+		document.location.href = "marry";
+	}
+
+    $("#advise").click(function(){
+        $("#advise").css("border-color","#66afe9");
+    })
+    $("#call").click(function(){
+        $("#call").css("border-color","#66afe9");
+    })
+
+	function submitAdvise() {
+	    var advise = $("#advise").val();
+	    var call = $("#call").val();
+        if( advise == "" ){
+            $("#advise").css("border-color","red");
+            return;
+        }
+        if( call == "" ){
+            $("#call").css("border-color","red");
+            return;
+        }
+        $.ajax({
+            headers:{
+                "Authorization":token
+            },
+            url: "submitAdvise",
+            type: "post",
+            data: {"advise":advise,"call":call},
+            dataType: "json",
+            async:false, //同步
+            success: function (data) {
+                if(data.status == 200){
+                    alert(data.message+"，马上返回首页");
+                    document.location.href = "marry";
+                }else{
+                    alert(data.message);
+                }
+            }
+        });
+	}
+</script>
+</body>
+</html>

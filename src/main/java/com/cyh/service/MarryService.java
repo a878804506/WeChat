@@ -96,4 +96,14 @@ public class MarryService {
             return new ResultJSON(100, e.getMessage());
         }
     }
+
+    public ResultJSON submitAdvise(String advise, String call) {
+        try {
+            marryMapper.submitAdvise(advise, call);
+            return new ResultJSON(200, "提交成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResultJSON(100, e.getMessage());
+        }
+    }
 }

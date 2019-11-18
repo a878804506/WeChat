@@ -28,6 +28,8 @@ public class MyFilter implements Filter {
         NOT_CHECK_URL.add("/marrypicture");
         // 跳转的页面- 来客登记页面
         NOT_CHECK_URL.add("/visitorRegistration");
+        // 跳转的页面- 你的建议
+        NOT_CHECK_URL.add("/advise");
         // 获取照片分组列表
         NOT_CHECK_URL.add("/getMarryPictureGroupList");
         // wechat

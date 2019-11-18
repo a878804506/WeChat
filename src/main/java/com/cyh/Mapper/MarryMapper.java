@@ -26,4 +26,6 @@ public interface MarryMapper {
     void submitVisitor(@Param("name") String name, @Param("phone") String phone, @Param("peoples") String peoples, @Param("ip") String ip);
 
     List<Map<String, String>> getAllVisitors();
+
+    void submitAdvise(@Param("advise") String advise, @Param("call") String call);
 }

@@ -32,4 +32,8 @@
     <select id="getAllVisitors" resultType="Map">
 		select * from visitor
 	</select>
+
+	<insert id="submitAdvise">
+        insert into advise(advise,`call`)  values(#{advise},#{call});
+    </insert>
 </mapper>

@@ -57,7 +57,7 @@
 <body>
 <div id="header" class="head">
 	<div class="wrap">
-		<i class="menu_back"><a href="marry"></a></i>
+		<i class="menu_back"><a></a></i>
 		<div class="title">
 			<span class="title_d"><p>来客登记</p></span>
 			<div class="clear"></div>
@@ -204,12 +204,8 @@
 			dataType: "json",
 			async:false, //同步
 			success: function (data) {
-				if(data.status == 200){
-                    alert(data.message+"，马上返回首页");
-                    document.location.href = "marry";
-				}else{
-					alert(data.message);
-				}
+				alert(data.message);
+				$('.menu_back a').click();
 			}
 		});
 	}

@@ -9,14 +9,12 @@
 	<style type="text/css">
 		.myPicture{
 			text-align: center;
-
 		}
-		.lazy{
-			/*width: 85%;*/
-		}
-
         body{margin: 0;padding: 0}
         img{width: 86%;height: auto;}
+		hr{
+			margin: 6px auto;
+		}
 	</style>
 </head>
 <body>
@@ -109,8 +107,10 @@
 				// 填充图片
 				var html = "";
 				$.each(data.data.pictureList,function(index,picture){
-					html += "<img class=\"lazy\" src=\"css/loading.gif\" data-src=\""+picture.pictureBasePath+picture.pictureRealPath+"\" " +
+					html += "<img src=\"css/loading.gif\" data-src=\""+picture.pictureBasePath+picture.pictureRealPath+"\" " +
 							"data-full=\""+picture.pictureBasePath+picture.pictureRealFullPath+"\"/>";
+					html += "<div>第"+(index+1)+"张<div/>";
+					html += "<hr/>";
 				});
 				$("#myPicture").html(html);
 				// 首次加载完毕 触发一次加载图片
@@ -141,7 +141,7 @@
         var imgs = document.querySelectorAll('img');
 		for(var i=0;i<imgs.length;i++){
 			//图片距离顶部的距离大于可视区域和滚动区域之和时懒加载
-            console.log("pictureHeight--->"+pictureHeight);
+            // console.log("pictureHeight--->"+pictureHeight);
 			if ((h+s)>pictureHeight) {
                 pictureHeight += getTop(imgs[i]);
 				// 真实情况是页面开始有2秒空白，所以使用setTimeout定时2s
@@ -175,7 +175,15 @@
      *  支持多图识别切换
      *  支持手势放大,切换
 	 */
-    $('#myPicture').FlyZommImg();
+    // $('#myPicture').FlyZommImg();
+
+	$('#myPicture').FlyZommImg({
+		rollSpeed: 200,//切换速度
+		miscellaneous: false,//是否显示底部辅助按钮
+		closeBtn: true,//是否打开右上角关闭按钮
+		hideClass: 'hideImg',//不需要显示预览的 class
+		imgQuality: 'original',//图片质量类型  thumb 缩略图  original 默认原图
+	});
 </script>
 </body>
 </html>
